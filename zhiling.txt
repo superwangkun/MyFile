@@ -1,0 +1,59 @@
+一、adb指令
+1、查看adb连接的设备
+adb devices
+
+2、获取设备序列号
+adb get-serialno
+
+3、打开/关闭adb服务
+adb start-server
+adb kill-server
+
+4、设备和PC之间互相拷贝数据
+adb pull /sdcard/testdir F:\debugfile 设备数据拷贝到PC
+adb push F:\debugfile /sdcard/testdir PC数据拷贝到设备
+adb push F:\debugfile\xxx.apk /system/app 如果是apk拷贝到system/app目录下就会自动安装
+
+5、查看应用包名
+adb shell ---- pm -l   查看所有应用
+adb shell ---- pm -l |grep xxx   模糊搜索
+
+6、根据包名查看apk所在dir
+adb shell ---- pm path com.UCMobile
+
+7、启动某个activity
+adb shell ---- am start -n 应用包名/activity包名.activity
+
+8、安装、卸载apk
+adb shell ---- install/uninstall com.kw.kwmusiccar
+
+9、签名
+java -jar signapk.jar  testkey.x509.pem testkey.pk8　old.apk new.apk
+
+10、读写权限
+adb root/adb disable-verity/重启后adb root adb remount
+
+
+二、git指令
+1、查看本地分支：git branch
+      查看远程分支：git branch -r
+      查看所有分支：git branch -a
+
+2、创建新分支：git branch xxx1 xxx2（从xxx2分支中克隆，创建名为xxx1的分支；如果xxx2缺省，就是从当前分支克隆；xxx2可以是远程分支，记得带origin前缀：git branch xxx1 origin/xxx2）
+
+3、切换到目标分支：git checkout xxxx
+
+4、删除分支：git branch -D xxxx  （小写d是正常删除，大写D是强行删除）
+
+5、把更新添加到暂存区：git add
+
+7、查看远程所有分支：git branch -r
+
+8、push到远程分支：git push origin xxxx （把当前分支的修改push到远程xxxx分支，如果xxxx不存在就新建一个）
+
+10、在本地master修改完后，执行“git stash”命令，把修改放到暂存区，再执行“git pull”更新master，再创建新分支，在分支上执行“git stash list”查看暂存区的修改，然后在分支上执行“git stash pop”命令把之前的修改同步到分支
+
+11、git checkout -- fileName(完成路径+name)：放弃该文件的修改
+ git checkout . ：放弃当前目录下所有修改，“.”就是代表当前目录
+
+12、修改修改分支名称：git branch -m/M oldName newName
